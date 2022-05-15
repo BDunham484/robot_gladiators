@@ -5,11 +5,21 @@ var playerMoney = 10;
 
 console.log(playerName, playerAttack, playerHealth);
 
-var enemyName = "Gamma-X";
+var enemyNames = ["Gamma-X", "Techno-Kill", "Omega-Unit"];
 var enemyHealth = 50;
 var enemyAttack = 12;
+// console.log(enemyNames[0]);
+// console.log(enemyNames[1]);
+// console.log(enemyNames[2]);
+// console.log(enemyNames.length);
+// for(var i = 0; i < enemyNames.length; i++) {
+//     console.log(enemyNames[i]);
+// }
 
-var fight = function fight() {
+
+
+//start fight() function expression
+var fight = function(enemyName) {
     //alert players that they are starting the round
     window.alert("Welcome to Robot Gladiators!!");
 
@@ -25,7 +35,6 @@ var fight = function fight() {
         console.log(
             playerName + " attacked " + enemyName + ". " + enemyName + " now has " + enemyHealth + " health remaining."
         )
-
         //check my enemy's health
         if (enemyHealth <= 0) {
             window.alert(enemyName + " has died!");
@@ -64,8 +73,15 @@ var fight = function fight() {
         
     } else {
         window.alert("You need to choose a valid option. Try again.");
-    }
-    
+    } 
 }
+//end fight() function expression
 
-fight();
+
+
+
+//start fight() function call
+for(var i = 0; i < enemyNames.length; i++) {
+    fight(enemyNames[i]);
+}
+//end fight() function call
