@@ -108,6 +108,16 @@ var startGame = function() {
 
             //pass the pickedEnemyName variable's value into the fight function, where it will assume the value of the enemyName parameter
             fight(pickedEnemyName);
+            //if player is still alive and we're not at the last enemy in the array
+            if (playerHealth > 0 && i < enemyNames.length -1) {
+                //ask if player wants to use the shop before next round
+                var storeConfirm = window.confirm("Would you like to visit the shop before the next round?");
+                //if yes, take them to the store() function
+                if (storeConfirm) {
+                    shop();
+                }
+        
+            }
         } else {//end fight() function call within for loop
             console.log("Better luck next time, " + playerName + "!");
             break;
@@ -116,7 +126,7 @@ var startGame = function() {
     }
     //end for loop
 
-    //after loopends, player is either out of health or enemies to fight, so run the endGame function
+    //after loop ends, player is either out of health or enemies to fight, so run the endGame function
     endGame();
 };
 //end startGame() function expression
@@ -145,6 +155,53 @@ var endGame = function() {
     }
 };
 //end function expression to end the game
+
+
+
+
+
+//start shop function expression
+var shop = function() {
+    //ask player what they'd like to do
+    var shopOptionPrompt = window.prompt(
+        "Please choose one: REFILL your health, UPGRADE your attack, LEAVE the store."
+    );
+    //use switch to carry out action
+    switch (shopOptionPrompt) {
+        case "REFILL": //new case
+        case "refill":
+            if (playerMoney >= 7) {
+                window.alert("Refillng " + playerName + "'s health by 20 for 7 bucks.");
+                //increase health and decrease money
+                playerHealth = playerHealth + 20;
+                playerMoney = playerMoney - 7;
+            } else {
+                window.alert("You don't have enough cash.");
+            }          
+            break;
+        case "UPGRADE": //new case
+        case "upgrade":
+            if (playerMoney >= 7) {
+                window.alert("Upgrading " + playerName + "'s attach by 6 for 7 bucks.");
+                //increase attack and decrease money
+                playerAttack = playerAttack + 6;
+                playerMoney = playerMoney - 7;
+            } else {
+                window.alert("You broke!");
+            }
+            break;
+        case "LEAVE": //new case
+        case "leave":
+            window.alert("Leaving the store.");
+            //do nothing, so function will end
+            break;
+        default:
+            window.alert("You did not pick a valid option.  Try again.");
+            //call shop() again to force player to pick a valid option
+            shop();
+            break;
+    }
+};
 
 
 
