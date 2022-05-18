@@ -120,16 +120,26 @@ var fightOrSkip = function() {
 
 //start fight() function expression
 var fight = function(enemy) {
+
+    //keep track of who goes first
+    var isPlayerTurn = true;
+    //randomly change turn order
+    if (Math.random() > 0.5) {
+        isPlayerTurn = false;
+    }
     //repeat and execute as long as the enemy-robot is alive
     //start while() loop
     while(playerInfo.health > 0 && enemy.health > 0) {
-        //ask player if they'd like to fight or skip using fightOrSkip function
-        if (fightOrSkip()) {
-            //if true, leave fight by breaking loop
-            break;
-        }
-        //if player chooses to fight, then fight
-        // if (promptFight === "fight" || promptFight === "FIGHT") {
+        if (isPlayerTurn) {
+            //ask player if they'd like to fight or skip using fightOrSkip function
+            if (fightOrSkip()) {
+                //if true, leave fight by breaking loop
+                break;
+            }
+        
+        
+            //if player chooses to fight, then fight
+            // if (promptFight === "fight" || promptFight === "FIGHT") {
             //generate random damage value based on player's attack power
             var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);            //subtract the value of 'playerInfo.attack' from the value of 'enemy.health' and use that result to update the value in the 'enemeyHealth' variable
             enemy.health = Math.max(0, enemy.health - damage);
@@ -148,17 +158,17 @@ var fight = function(enemy) {
             } else {
                 window.alert(enemy.name + " still has " + enemy.health + " health left.");
             }
+        //player gets attacked first
+        } else {
             //generate random damage value based on enemies attack value
             var damage = randomNumber(enemy.attack - 3, enemy.attack);
             //subtract the value of 'enemy.attack' from the value of 'playerInfo.health' and use that result to update the value in the 'playerInfo.health' variable
             playerInfo.health = Math.max(0, playerInfo.health - damage);
-            // console.log(playerInfo.name + "Health: " + playerInfo.health);
 
             //log a resulting message to the console so we know that it worked
             console.log(
                 enemy.name + " attacked " + playerInfo.name + ". " + playerInfo.name + " now has " + playerInfo.health + " health remaining."
             );
-
             //check player's health
             if (playerInfo.health <= 0) {
                 window.alert(playerInfo.name + " has died!");
@@ -167,13 +177,12 @@ var fight = function(enemy) {
             } else {
                 window.alert(playerInfo.name + " still has " + playerInfo.health + " health left.");
             }
-        // } else {
-        //     window.alert("You need to choose a valid option. Try again.");
-        // } 
-    }
-    //end while() loop 
-}
-//end fight() function expression
+        }//end isPlayerTurn if statement
+        //switch turn around for next round
+        isPlayerTurn = !isPlayerTurn;
+    }//end while() loop 
+};//end fight() function expression
+
 
 
 
